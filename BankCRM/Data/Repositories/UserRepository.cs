@@ -1,6 +1,7 @@
 ﻿using BankCRM.Data.IRepositories;
 using BankCRM.Domain.Configurations;
 using BankCRM.Domain.Entities;
+using BankCRM.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,7 +16,7 @@ namespace BankCRM.Data.Repositories
         string path = DatabasePath.Path;
         public User Create(User user)
         {
-            string person = $"{user.Id}|{user.FirstName}|{user.LastName}|{user.Email}|{user.Password}|{user.CreatedDate}\n";
+            string person = $"{user.Id}|{user.FirstName}|{user.LastName}|{user.Email}|{user.Password}|{user.CreatedDate} |{user.UserType}\n";
             File.AppendAllText(path, person);
             return user;
         }
@@ -54,6 +55,16 @@ namespace BankCRM.Data.Repositories
                 person.Email = arr[3];
                 person.Password = arr[4];
                 person.CreatedDate = DateTime.Parse(arr[5]);
+                    // person.UserType = (Domain.Enums.UserType)Enum.Parse(typeof(User), arr[6]);
+
+                    if (int.Parse(arr[6]) == 0)
+                    {
+                        person.UserType = UserType.Male;  
+                    }
+                    else if (int.Parse(arr[6]) == 1)
+                    {
+                        person.UserType = UserType.Famele;
+                    }
                 list.Add(person);
                 }catch(FormatException ex)
                 {
