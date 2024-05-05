@@ -11,6 +11,7 @@ namespace BankCRM.Service.Helpers
     {
        public int StatusCode {  get; set; }
         public string Message { get; set; }
+        public bool IsAvailable {  get; set; }
         public User User { get; set; }
     }
 }
